@@ -181,6 +181,27 @@ Register it in `~/.config/opencode/opencode.json`:
 
 See [`opencode-plugin/README.md`](./opencode-plugin/README.md) for details.
 
+### Claude Code
+
+Claude Code has no plugin API, so `claude-code-hook/` captures through its hook system: `UserPromptSubmit` and `PostToolUse` pipe a payload to a small Node script that writes to L0 through `/v3/conversation/add`. Unlike the proxy setup in [`../agents/claude-code/`](../agents/claude-code/), it works with any provider or model and only writes memory.
+
+Merge [`claude-code-hook/settings.example.json`](./claude-code-hook/settings.example.json) into `~/.claude/settings.json`:
+
+```json
+{
+  "hooks": {
+    "UserPromptSubmit": [
+      { "hooks": [{ "type": "command", "command": "node \"$HOME/.claude/hooks/tdai-capture.mjs\" prompt" }] }
+    ],
+    "PostToolUse": [
+      { "matcher": "*", "hooks": [{ "type": "command", "command": "node \"$HOME/.claude/hooks/tdai-capture.mjs\" tool" }] }
+    ]
+  }
+}
+```
+
+See [`claude-code-hook/README.md`](./claude-code-hook/README.md) for the full hook list and configuration.
+
 ### Custom Agents
 
 Custom runtimes can use the SDKs included in this repository:
@@ -258,6 +279,7 @@ MemoryCore/
 ├── src/services/          Pipeline scanner, workers, and scheduling services
 ├── openclaw-plugin/       Lightweight OpenClaw client adapter
 ├── opencode-plugin/       OpenCode capture plugin (v3 L0 client)
+├── claude-code-hook/      Claude Code capture hooks (v3 L0 client)
 ├── hermes-plugin/         Hermes Memory Provider
 ├── scripts/               Installation, build, migration, and operations tools
 ├── Dockerfile             MemoryCore Gateway image
