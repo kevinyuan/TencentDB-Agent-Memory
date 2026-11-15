@@ -1,0 +1,35 @@
+{
+  "name": "@tencentdb-agent-memory/opencode-tdai-client",
+  "version": "0.1.0",
+  "description": "OpenCode plugin that captures prompts and tool activity into TencentDB Agent Memory (L0, /v3).",
+  "type": "module",
+  "main": "index.ts",
+  "exports": {
+    ".": "./index.ts"
+  },
+  "files": [
+    "index.ts",
+    "README.md",
+    "README_CN.md"
+  ],
+  "keywords": [
+    "opencode",
+    "opencode-plugin",
+    "memory",
+    "ai-memory",
+    "tencentdb-agent-memory"
+  ],
+  "scripts": {
+    "typecheck": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@opencode/plugin": "^2.3.0"
+  },
+  "devDependencies": {
+    "@types/node": "^22.0.0",
+    "typescript": "^5.5.0"
+  },
+  "engines": {
+    "node": ">=20.0.0"
+  }
+}
